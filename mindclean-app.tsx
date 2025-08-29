@@ -82,9 +82,7 @@ const uid = () => Math.random().toString(36).slice(2, 9);
 
 export default function MindCleanApp() {
   const [input, setInput] = useState("");
-  // États séparés par mode - NETTOYAGE COMPLET
-  const [dumpItems, setDumpItems] = useState([]);
-  const [confideItems, setConfideItems] = useState([]);
+  const [items, setItems] = useState([]);
   const [streak, setStreak] = useState(0);
   const [lastDischargeDate, setLastDischargeDate] = useState(null);
   const [bubble, setBubble] = useState(null);
@@ -97,19 +95,6 @@ export default function MindCleanApp() {
 
 
   const currentModeData = MODES.find(m => m.key === currentMode);
-
-  // Obtenir les items du mode actuel - SÉPARATION COMPLÈTE
-  const getCurrentItems = () => currentMode === "dump" ? dumpItems : confideItems;
-
-  const setCurrentItems = (updater) => {
-    if (currentMode === "dump") {
-      setDumpItems(updater);
-    } else {
-      setConfideItems(updater);
-    }
-  };
-
-  // Enhanced discharge function
   const discharge = () => {
     const text = input.trim();
     if (!text) {
@@ -127,7 +112,7 @@ export default function MindCleanApp() {
       mode: currentMode
     };
 
-    setCurrentItems(prev => [item, ...prev]);
+    setItems(prev => [item, ...prev]);
     setBubble({
       text,
       color: COLUMNS.find(c => c.key === col)?.color || "from-orange-400/20 to-red-500/60",
@@ -152,18 +137,17 @@ export default function MindCleanApp() {
   };
 
   const removeItem = (id) => {
-    setCurrentItems(prev => prev.filter(i => i.id !== id));
+    setItems(prev => prev.filter(i => i.id !== id));
   };
 
   const moveItem = (id, newCol) => {
-    setCurrentItems(prev => prev.map(i =>
+    setItems(prev => prev.map(i =>
       i.id === id ? { ...i, col: newCol } : i
     ));
   };
 
-  // Export function
+    // Export function
   const exportText = () => {
-    const currentItems = getCurrentItems();
     const date = new Date().toLocaleDateString('fr-FR', {
       weekday: 'long',
       year: 'numeric',
@@ -171,15 +155,12 @@ export default function MindCleanApp() {
       day: 'numeric'
     });
 
-    const modeTitle = currentMode === 'dump' ? 'Vider ma tête' : 'Se confier';
-    const modeIcon = currentMode === 'dump' ? '🧠' : '💭';
-
-    let content = `${modeIcon} MindClean - ${modeTitle} - Export du ${date}\n`;
-    content += `📊 Total: ${currentItems.length} éléments • Streak: ${streak} jour${streak > 1 ? 's' : ''}\n`;
+    let content = `🔥 MindClean - Export du ${date}\n`;
+    content += `📊 Total: ${items.length} éléments • Streak: ${streak} jour${streak > 1 ? 's' : ''}\n`;
     content += `${'='.repeat(50)}\n\n`;
 
     COLUMNS.forEach(col => {
-      const colItems = currentItems.filter(i => i.col === col.key);
+      const colItems = items.filter(i => i.col === col.key);
       content += `${col.icon} ${col.label.toUpperCase()} (${colItems.length})\n`;
       content += `-${'-'.repeat(col.label.length + 10)}\n`;
 
@@ -187,7 +168,8 @@ export default function MindCleanApp() {
         content += "• Aucun élément\n\n";
       } else {
         colItems.forEach(item => {
-          content += `• ${item.text}\n`;
+          const modeIcon = item.mode === 'confide' ? '💭' : '🧠';
+          content += `• ${modeIcon} ${item.text}\n`;
         });
         content += "\n";
       }
@@ -202,21 +184,19 @@ export default function MindCleanApp() {
 
     if (navigator.share) {
       try {
-        const modeTitle = currentMode === 'dump' ? 'Vider ma tête' : 'Se confier';
         await navigator.share({
-          title: `MindClean - ${modeTitle}`,
+          title: "MindClean - Ma décharge mentale",
           text
         });
       } catch (e) {
         console.log('Share cancelled');
       }
     } else {
-      const modeName = currentMode === 'dump' ? 'vider-tete' : 'se-confier';
       const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `mindclean-${modeName}_${new Date().toISOString().split('T')[0]}.txt`;
+      a.download = `mindclean_${new Date().toISOString().split('T')[0]}.txt`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -225,13 +205,12 @@ export default function MindCleanApp() {
   };
 
   const weekStats = useMemo(() => {
-    const currentItems = getCurrentItems();
     const days = Array.from({ length: 7 }, (_, i) => {
       const date = new Date();
       date.setDate(date.getDate() - (6 - i));
       const dateKey = date.toDateString();
 
-      const dayItems = currentItems.filter(item =>
+      const dayItems = items.filter(item =>
         new Date(item.date).toDateString() === dateKey
       );
 
@@ -246,7 +225,7 @@ export default function MindCleanApp() {
     const maxCount = Math.max(...days.map(d => d.count), 1);
 
     return { days, total, maxCount };
-  }, [dumpItems, confideItems, currentMode]);
+  }, [items]);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsTyping(false), 1000);
@@ -279,10 +258,7 @@ export default function MindCleanApp() {
 
   // Enhanced column component
   const Column = ({ col }) => {
-    const currentItems = getCurrentItems();
-    const columnItems = currentItems.filter(i => i.col === col.key);
-
-
+    const columnItems = items.filter(i => i.col === col.key);
 
     return (
       <div className={`backdrop-blur-sm border-2 rounded-3xl p-5 shadow-xl hover:shadow-2xl transition-all duration-300 flex-1 min-h-[320px] ${col.bgColor} border-orange-200/30`}>
@@ -327,14 +303,14 @@ export default function MindCleanApp() {
                 <div className="flex items-start gap-3 pr-8">
                   <div className="flex-shrink-0 mt-0.5">
                     <span className="text-lg">
-                      {currentMode === 'confide' ? '💭' : '🧠'}
+                      {item.mode === 'confide' ? '💭' : '🧠'}
                     </span>
                   </div>
                   <div className="flex-1">
                     <p className="text-sm text-slate-800 leading-relaxed font-medium">
                       {item.text}
                     </p>
-                    {currentMode === 'confide' && (
+                    {item.mode === 'confide' && (
                       <div className="mt-2 text-xs text-rose-600 italic font-medium">
                         ❤️ Confidence personnelle
                       </div>
@@ -540,7 +516,7 @@ export default function MindCleanApp() {
                   
                   <button
                     onClick={share}
-                    disabled={getCurrentItems().length === 0}
+                    disabled={items.length === 0}
                     className="rounded-3xl px-8 py-5 font-bold border-2 border-orange-300 bg-white/90 hover:bg-orange-50 hover:border-orange-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:shadow-lg text-lg"
                   >
                     <span className="flex items-center justify-center gap-3 text-slate-700">
@@ -617,7 +593,7 @@ export default function MindCleanApp() {
             </h3>
             <div className="space-y-6">
               <p className="text-sm text-slate-700 leading-relaxed font-medium">
-                {getCurrentItems().some(i => i.col === 'introspect')
+                {items.some(i => i.col === 'introspect')
                   ? "🔥 Chaque émotion exprimée est une flamme qui éclaire votre chemin intérieur."
                   : currentMode === 'confide'
                   ? "💭 Se confier, c'est donner de l'oxygène à sa flamme intérieure."
@@ -641,14 +617,14 @@ export default function MindCleanApp() {
                 </p>
               </div>
 
-              {getCurrentItems().filter(i => i.col === 'introspect').length > 0 && (
+              {items.filter(i => i.col === 'introspect').length > 0 && (
                 <div className="bg-gradient-to-r from-rose-100 to-pink-100 rounded-2xl p-5 border border-rose-200">
                   <div className="flex items-center gap-3 mb-3">
                     <span className="text-rose-600 text-xl">🧘</span>
                     <span className="text-sm font-bold text-rose-800">Espace sacré</span>
                   </div>
                   <p className="text-xs text-rose-700 font-semibold">
-                    {getCurrentItems().filter(i => i.col === 'introspect').length} moment{getCurrentItems().filter(i => i.col === 'introspect').length !== 1 ? 's' : ''} d'introspection cette semaine
+                    {items.filter(i => i.col === 'introspect').length} moment{items.filter(i => i.col === 'introspect').length !== 1 ? 's' : ''} d'introspection cette semaine
                   </p>
                   <p className="text-xs text-rose-600 mt-2 italic">
                     "La flamme qui éclaire le mieux est celle qui brûle dans le cœur" 💖
@@ -656,14 +632,14 @@ export default function MindCleanApp() {
                 </div>
               )}
 
-              {currentMode === 'confide' && getCurrentItems().length > 0 && (
+              {items.filter(i => i.mode === 'confide').length > 0 && (
                 <div className="bg-gradient-to-r from-amber-100 to-orange-100 rounded-2xl p-5 border border-amber-200">
                   <div className="flex items-center gap-3 mb-3">
                     <span className="text-amber-600 text-xl">💭</span>
                     <span className="text-sm font-bold text-amber-800">Confidences</span>
                   </div>
                   <p className="text-xs text-amber-700 font-semibold">
-                    {getCurrentItems().length} confidence{getCurrentItems().length !== 1 ? 's' : ''} partagée{getCurrentItems().length !== 1 ? 's' : ''} avec bienveillance
+                    {items.filter(i => i.mode === 'confide').length} confidence{items.filter(i => i.mode === 'confide').length !== 1 ? 's' : ''} partagée{items.filter(i => i.mode === 'confide').length !== 1 ? 's' : ''} avec bienveillance
                   </p>
                   <p className="text-xs text-amber-600 mt-2 italic">
                     "Libérer ses pensées, c'est allumer sa propre lumière" ✨
