@@ -2,6 +2,16 @@
 
 Application de nettoyage mental avec une interface élégante et chaleureuse. Organisez vos pensées quotidiennes avec deux modes : "Vider ma tête" et "Se confier".
 
+## 🌟 Pages disponibles
+
+- **`landing.html`** - Landing page attractive avec présentation des fonctionnalités
+- **`index.html`** - Application MindClean complète
+
+## 🚀 Démarrage rapide
+
+1. **Pour découvrir l'application** : Ouvrez `landing.html` dans votre navigateur
+2. **Pour utiliser MindClean** : Cliquez sur "Accéder à l'app" ou ouvrez `index.html`
+
 ## 🚀 Déploiement sur Netlify
 
 ### Prérequis
@@ -71,13 +81,14 @@ npm run preview
 
 ```
 mindclean-app/
+├── landing.html         # Landing page attractive
+├── index.html           # Application MindClean
 ├── src/
 │   ├── main.jsx          # Point d'entrée React
 │   └── index.css         # Styles Tailwind + animations
 ├── public/
 │   └── _redirects        # Configuration routage Netlify
 ├── mindclean-app.tsx     # Composant principal
-├── index.html           # Template HTML
 ├── package.json         # Dépendances et scripts
 ├── netlify.toml         # Configuration Netlify
 ├── vite.config.js       # Configuration Vite
@@ -85,14 +96,26 @@ mindclean-app/
 └── postcss.config.js    # Configuration PostCSS
 ```
 
-### 🎨 Fonctionnalités
+### 🎨 Fonctionnalités de l'application
 
-- **Deux modes** : "Vider ma tête" (pratique) et "Se confier" (émotionnel)
+- **Deux modes séparés** : "Vider ma tête" (pratique) et "Se confier" (émotionnel)
 - **Classification automatique** des pensées dans 4 catégories
+- **Suppression rapide** : Bouton ✕ ou double-clic
 - **Interface élégante** avec thème chaleureux
 - **Statistiques hebdomadaires** et suivi de streak
-- **Export des données** au format texte
+- **Export des données** au format texte par mode
 - **Design responsive** pour mobile et desktop
+
+## 🌟 Fonctionnalités de la landing page
+
+- **Hero section** avec présentation accrocheuse
+- **Navigation fluide** vers l'application
+- **Présentation des deux modes** avec exemples visuels
+- **Section fonctionnalités** avec cartes interactives
+- **Témoignages utilisateurs** pour la crédibilité
+- **Statistiques d'engagement** (10K+ pensées organisées)
+- **Design responsive** et animations élégantes
+- **Call-to-action** multiples pour inciter à l'action
 
 ### 🔒 Sécurité
 
@@ -109,6 +132,16 @@ Après déploiement, Netlify vous fournira une URL au format :
 Vous pouvez personnaliser cette URL dans les paramètres de votre site Netlify.
 
 ---
+
+## 🎨 Utilisation de la landing page
+
+**Pour une première impression optimale :**
+- Ouvrez `landing.html` pour découvrir MindClean de façon attrayante
+- La landing page présente les fonctionnalités et suscite l'envie
+- Bouton "Accéder à l'app" redirige vers `index.html`
+
+**Pour définir la landing page comme page d'accueil :**
+Si vous voulez que `landing.html` soit la page d'accueil de votre site, configurez Netlify pour rediriger la racine vers `landing.html` au lieu d'`index.html`.
 
 **MindClean** - Prenez soin de votre flamme intérieure 🔥❤️
 

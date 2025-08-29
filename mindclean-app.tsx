@@ -82,7 +82,7 @@ const uid = () => Math.random().toString(36).slice(2, 9);
 
 export default function MindCleanApp() {
   const [input, setInput] = useState("");
-  // Séparer les items par mode
+  // États séparés par mode - NETTOYAGE COMPLET
   const [dumpItems, setDumpItems] = useState([]);
   const [confideItems, setConfideItems] = useState([]);
   const [streak, setStreak] = useState(0);
@@ -94,10 +94,13 @@ export default function MindCleanApp() {
   const [isTyping, setIsTyping] = useState(false);
   const inputRef = useRef(null);
 
+
+
   const currentModeData = MODES.find(m => m.key === currentMode);
 
-  // Obtenir les items du mode actuel
+  // Obtenir les items du mode actuel - SÉPARATION COMPLÈTE
   const getCurrentItems = () => currentMode === "dump" ? dumpItems : confideItems;
+
   const setCurrentItems = (updater) => {
     if (currentMode === "dump") {
       setDumpItems(updater);
@@ -279,6 +282,8 @@ export default function MindCleanApp() {
     const currentItems = getCurrentItems();
     const columnItems = currentItems.filter(i => i.col === col.key);
 
+
+
     return (
       <div className={`backdrop-blur-sm border-2 rounded-3xl p-5 shadow-xl hover:shadow-2xl transition-all duration-300 flex-1 min-h-[320px] ${col.bgColor} border-orange-200/30`}>
         <div className="flex items-center justify-between mb-5">
@@ -305,8 +310,21 @@ export default function MindCleanApp() {
                 animation: `fadeInUp 0.4s ease-out ${index * 0.1}s both`
               }}
             >
-              <div className="rounded-2xl border-2 border-white/50 bg-white/70 backdrop-blur-sm px-4 py-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:border-orange-200/70 hover:bg-white/90">
-                <div className="flex items-start gap-3">
+              <div
+                className="rounded-2xl border-2 border-white/50 bg-white/70 backdrop-blur-sm px-4 py-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:border-orange-200/70 hover:bg-white/90 relative cursor-pointer"
+                onDoubleClick={() => removeItem(item.id)}
+                title="Double-clic pour supprimer rapidement"
+              >
+                {/* Bouton de suppression rapide - toujours visible */}
+                <button
+                  onClick={() => removeItem(item.id)}
+                  className="absolute top-2 right-2 w-6 h-6 rounded-full bg-red-100 hover:bg-red-200 border border-red-200 hover:border-red-300 flex items-center justify-center text-red-600 hover:text-red-700 transition-all duration-200 opacity-70 hover:opacity-100 shadow-sm"
+                  title="Supprimer cette note"
+                >
+                  <span className="text-xs font-bold">✕</span>
+                </button>
+
+                <div className="flex items-start gap-3 pr-8">
                   <div className="flex-shrink-0 mt-0.5">
                     <span className="text-lg">
                       {currentMode === 'confide' ? '💭' : '🧠'}
@@ -321,6 +339,11 @@ export default function MindCleanApp() {
                         ❤️ Confidence personnelle
                       </div>
                     )}
+                    {/* Indicateur de raccourcis de suppression */}
+                    <div className="mt-2 text-xs text-slate-400 opacity-50 flex items-center gap-1">
+                      <span>💡</span>
+                      <span>Double-clic ou ✕ pour supprimer</span>
+                    </div>
                   </div>
                 </div>
                 
