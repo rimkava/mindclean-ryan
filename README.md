@@ -2,15 +2,20 @@
 
 Application de nettoyage mental avec une interface élégante et chaleureuse. Organisez vos pensées quotidiennes avec deux modes : "Vider ma tête" et "Se confier".
 
-## 🌟 Pages disponibles
+## 🌟 Fonctionnalités principales
 
-- **`landing.html`** - Landing page attractive avec présentation des fonctionnalités
-- **`index.html`** - Application MindClean complète
+**Page unique intégrée (`index.html`)** :
+- ✅ **Landing page attractive** - Présentation du service avec design émotionnel
+- ✅ **Navigation fluide** - Bouton "Utiliser l'app" pour accéder à l'application
+- ✅ **Application complète** - Tous les modes séparés et fonctionnalités
+- ✅ **Navigation retour** - Bouton "Retour à l'accueil" dans l'app
 
 ## 🚀 Démarrage rapide
 
-1. **Pour découvrir l'application** : Ouvrez `landing.html` dans votre navigateur
-2. **Pour utiliser MindClean** : Cliquez sur "Accéder à l'app" ou ouvrez `index.html`
+1. **Ouvrez `index.html`** dans votre navigateur
+2. **Découvrez MindClean** sur la landing page
+3. **Cliquez sur "Utiliser l'app"** pour accéder à l'application complète
+4. **Utilisez "Retour à l'accueil"** pour revenir à la présentation
 
 ## 🚀 Déploiement sur Netlify
 
@@ -81,14 +86,14 @@ npm run preview
 
 ```
 mindclean-app/
-├── landing.html         # Landing page attractive
-├── index.html           # Application MindClean
+├── index.html           # Landing page + Application intégrée
+├── index_backup.html    # Sauvegarde de l'ancienne version
 ├── src/
 │   ├── main.jsx          # Point d'entrée React
 │   └── index.css         # Styles Tailwind + animations
 ├── public/
 │   └── _redirects        # Configuration routage Netlify
-├── mindclean-app.tsx     # Composant principal
+├── mindclean-app.tsx     # Composant principal avec séparation des modes
 ├── package.json         # Dépendances et scripts
 ├── netlify.toml         # Configuration Netlify
 ├── vite.config.js       # Configuration Vite
@@ -96,26 +101,22 @@ mindclean-app/
 └── postcss.config.js    # Configuration PostCSS
 ```
 
-### 🎨 Fonctionnalités de l'application
+### 🎨 Fonctionnalités complètes
 
-- **Deux modes séparés** : "Vider ma tête" (pratique) et "Se confier" (émotionnel)
-- **Classification automatique** des pensées dans 4 catégories
-- **Suppression rapide** : Bouton ✕ ou double-clic
-- **Interface élégante** avec thème chaleureux
-- **Statistiques hebdomadaires** et suivi de streak
-- **Export des données** au format texte par mode
-- **Design responsive** pour mobile et desktop
+**Landing page intégrée :**
+- ✅ **Présentation attractive** - Hero section émotionnelle avec animations
+- ✅ **Navigation fluide** - Bouton "Utiliser l'app" pour accéder à l'application
+- ✅ **Design responsive** - Adapté mobile et desktop
+- ✅ **Call-to-action** multiples pour inciter à l'action
 
-## 🌟 Fonctionnalités de la landing page
-
-- **Hero section** avec présentation accrocheuse
-- **Navigation fluide** vers l'application
-- **Présentation des deux modes** avec exemples visuels
-- **Section fonctionnalités** avec cartes interactives
-- **Témoignages utilisateurs** pour la crédibilité
-- **Statistiques d'engagement** (10K+ pensées organisées)
-- **Design responsive** et animations élégantes
-- **Call-to-action** multiples pour inciter à l'action
+**Application MindClean :**
+- ✅ **Deux modes séparés** - "Vider ma tête" et "Se confier" avec données indépendantes
+- ✅ **Classification automatique** - 4 catégories intuitives par mode
+- ✅ **Suppression rapide** - Bouton ✕ toujours visible + double-clic
+- ✅ **Navigation retour** - Bouton "Retour à l'accueil" dans l'app
+- ✅ **Statistiques par mode** - Suivi séparé pour chaque mode
+- ✅ **Export différencié** - Export par mode avec titre approprié
+- ✅ **Interface élégante** - Thème chaleureux cohérent
 
 ### 🔒 Sécurité
 
@@ -133,15 +134,20 @@ Vous pouvez personnaliser cette URL dans les paramètres de votre site Netlify.
 
 ---
 
-## 🎨 Utilisation de la landing page
+## 🎨 Utilisation intégrée
 
-**Pour une première impression optimale :**
-- Ouvrez `landing.html` pour découvrir MindClean de façon attrayante
-- La landing page présente les fonctionnalités et suscite l'envie
-- Bouton "Accéder à l'app" redirige vers `index.html`
+**Expérience utilisateur complète :**
+- ✅ **Un seul fichier** : `index.html` contient tout
+- ✅ **Landing page** : Présentation attractive au chargement
+- ✅ **Navigation fluide** : Bouton "Utiliser l'app" → Application
+- ✅ **Retour facile** : Bouton "Retour à l'accueil" dans l'app
 
-**Pour définir la landing page comme page d'accueil :**
-Si vous voulez que `landing.html` soit la page d'accueil de votre site, configurez Netlify pour rediriger la racine vers `landing.html` au lieu d'`index.html`.
+**Flux utilisateur :**
+1. **Ouverture** : Landing page avec présentation
+2. **Découverte** : Fonctionnalités et témoignages
+3. **Action** : Clic "Utiliser l'app" pour l'application
+4. **Utilisation** : Modes séparés avec toutes les fonctionnalités
+5. **Retour** : Bouton "Retour à l'accueil" pour revenir
 
 **MindClean** - Prenez soin de votre flamme intérieure 🔥❤️
 
