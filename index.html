@@ -139,6 +139,9 @@
           <div class="flex items-center gap-4">
             <a href="#features" class="text-slate-700 hover:text-orange-600 transition-colors font-medium">Fonctionnalités</a>
             <a href="#about" class="text-slate-700 hover:text-orange-600 transition-colors font-medium">À propos</a>
+            <button onclick="testApp()" class="bg-blue-500 text-white px-4 py-2 rounded-full font-medium hover:bg-blue-600 transition-all duration-300">
+              🔧 Test
+            </button>
             <button onclick="showApp()" class="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 text-white px-6 py-3 rounded-full font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300 relative">
               <span class="flex items-center gap-2">
                 <span>🚀</span>
@@ -518,7 +521,16 @@
     <div id="root"></div>
   </div>
 
-  <script>
+      <script>
+    // Test function to verify everything works
+    function testApp() {
+      console.log('=== TEST MINDCLEAN ===');
+      console.log('Landing view:', document.getElementById('landing-view'));
+      console.log('App view:', document.getElementById('app-view'));
+      console.log('Root element:', document.getElementById('root'));
+      alert('Test terminé - vérifiez la console pour les détails');
+    }
+
     // Smooth scrolling
     function scrollToFeatures() {
       document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
@@ -529,32 +541,15 @@
       // Masquer la landing page
       document.getElementById('landing-view').classList.add('hide');
 
-      // Afficher l'app avec un indicateur de chargement
+      // Afficher l'app
       const appView = document.getElementById('app-view');
-      appView.innerHTML = `
-        <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 via-red-50/50 to-pink-50/30">
-          <div class="text-center">
-            <div class="animate-spin w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full mx-auto mb-4"></div>
-            <p class="text-lg text-slate-600">Chargement de MindClean...</p>
-          </div>
-        </div>
-      `;
       appView.classList.add('show');
 
-      // Charger l'application React après un court délai
-      setTimeout(() => {
-        const script = document.createElement('script');
-        script.type = 'module';
-        script.src = '/src/main.jsx';
-        document.body.appendChild(script);
-
-        // Ajouter le contenu de l'app après le chargement du script
-        setTimeout(() => {
-          appView.innerHTML = `
-            <div id="root"></div>
-          `;
-        }, 100);
-      }, 500);
+      // Charger l'application React
+      const script = document.createElement('script');
+      script.type = 'module';
+      script.src = '/src/main.jsx';
+      document.body.appendChild(script);
     }
 
     // Show landing page function
