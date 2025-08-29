@@ -24,6 +24,40 @@
 <body>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
+
+  <!-- Debug script for mode separation testing -->
+  <script>
+    // Add a test button to the page
+    window.addEventListener('load', function() {
+      setTimeout(() => {
+        const testButton = document.createElement('button');
+        testButton.innerHTML = '🔧 Test Séparation';
+        testButton.style.cssText = `
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          padding: 10px 15px;
+          background: #3b82f6;
+          color: white;
+          border: none;
+          border-radius: 8px;
+          font-size: 12px;
+          cursor: pointer;
+          z-index: 9999;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        `;
+        testButton.onclick = function() {
+          console.log('=== MODE SEPARATION TEST ===');
+          console.log('Cliquez sur le bouton pour voir les logs dans la console de votre navigateur.');
+          console.log('Les logs affichent automatiquement le nombre d\'items par colonne et mode.');
+          console.log('Si vous voyez des items dans les mauvaises colonnes, il y a un problème de séparation.');
+
+          alert('Test activé ! Ouvrez la console (F12) et regardez les logs qui s\'affichent automatiquement quand vous utilisez l\'app.');
+        };
+        document.body.appendChild(testButton);
+      }, 2000); // Wait for React to load
+    });
+  </script>
 </body>
 </html>
 

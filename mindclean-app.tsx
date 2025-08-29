@@ -155,12 +155,13 @@ export default function MindCleanApp() {
       day: 'numeric'
     });
 
-    let content = `🔥 MindClean - Export du ${date}\n`;
-    content += `📊 Total: ${items.length} éléments • Streak: ${streak} jour${streak > 1 ? 's' : ''}\n`;
+    const currentModeItems = items.filter(i => i.mode === currentMode);
+    let content = `🔥 MindClean - ${currentMode === 'dump' ? 'Vider ma tête' : 'Se confier'} - Export du ${date}\n`;
+    content += `📊 Total: ${currentModeItems.length} éléments • Streak: ${streak} jour${streak > 1 ? 's' : ''}\n`;
     content += `${'='.repeat(50)}\n\n`;
 
     COLUMNS.forEach(col => {
-      const colItems = items.filter(i => i.col === col.key);
+      const colItems = items.filter(i => i.col === col.key && i.mode === currentMode);
       content += `${col.icon} ${col.label.toUpperCase()} (${colItems.length})\n`;
       content += `-${'-'.repeat(col.label.length + 10)}\n`;
 
@@ -211,7 +212,7 @@ export default function MindCleanApp() {
       const dateKey = date.toDateString();
 
       const dayItems = items.filter(item =>
-        new Date(item.date).toDateString() === dateKey
+        new Date(item.date).toDateString() === dateKey && item.mode === currentMode
       );
 
       return {
@@ -225,7 +226,7 @@ export default function MindCleanApp() {
     const maxCount = Math.max(...days.map(d => d.count), 1);
 
     return { days, total, maxCount };
-  }, [items]);
+  }, [items, currentMode]);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsTyping(false), 1000);
@@ -258,7 +259,12 @@ export default function MindCleanApp() {
 
   // Enhanced column component
   const Column = ({ col }) => {
-    const columnItems = items.filter(i => i.col === col.key);
+    const columnItems = items.filter(i => i.col === col.key && i.mode === currentMode);
+
+    // Debug: Afficher le nombre d'items par colonne et mode (uniquement en développement)
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`Column ${col.label} (${currentMode}): ${columnItems.length} items`);
+    }
 
     return (
       <div className={`backdrop-blur-sm border-2 rounded-3xl p-5 shadow-xl hover:shadow-2xl transition-all duration-300 flex-1 min-h-[320px] ${col.bgColor} border-orange-200/30`}>
@@ -516,7 +522,7 @@ export default function MindCleanApp() {
                   
                   <button
                     onClick={share}
-                    disabled={items.length === 0}
+                    disabled={items.filter(i => i.mode === currentMode).length === 0}
                     className="rounded-3xl px-8 py-5 font-bold border-2 border-orange-300 bg-white/90 hover:bg-orange-50 hover:border-orange-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:shadow-lg text-lg"
                   >
                     <span className="flex items-center justify-center gap-3 text-slate-700">
