@@ -139,8 +139,12 @@
           <div class="flex items-center gap-4">
             <a href="#features" class="text-slate-700 hover:text-orange-600 transition-colors font-medium">Fonctionnalités</a>
             <a href="#about" class="text-slate-700 hover:text-orange-600 transition-colors font-medium">À propos</a>
-            <button onclick="showApp()" class="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 text-white px-6 py-2 rounded-full font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300">
-              🧠 Décharger mes pensées
+            <button onclick="showApp()" class="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 text-white px-6 py-3 rounded-full font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300 relative">
+              <span class="flex items-center gap-2">
+                <span>🚀</span>
+                <span>Accéder à l'app</span>
+              </span>
+              <div class="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
             </button>
           </div>
         </div>
@@ -152,23 +156,29 @@
       <div class="max-w-7xl mx-auto">
         <div class="text-center">
           <div class="mb-8">
-            <h1 class="text-5xl md:text-7xl font-bold mb-6 slide-up">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 slide-up">
               <span class="gradient-text">Libérez</span> votre esprit,<br>
               <span class="text-slate-800">allumez</span> votre flamme
             </h1>
-            <p class="text-xl text-slate-600 mb-8 max-w-3xl mx-auto slide-up" style="animation-delay: 0.2s">
+            <p class="text-lg md:text-xl text-slate-600 mb-8 max-w-3xl mx-auto slide-up" style="animation-delay: 0.2s">
               Organisez vos pensées quotidiennes et exprimez vos émotions en toute intimité.
               Deux modes puissants pour prendre soin de votre flamme intérieure.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center slide-up" style="animation-delay: 0.4s">
-              <button onclick="showApp()" class="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 text-white px-8 py-4 rounded-full font-bold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 pulse-glow">
-                🧠 Décharger mes pensées et idées
+              <button onclick="showApp()" class="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300">
+                <span class="flex items-center gap-2">
+                  <span>🧠</span>
+                  <span>Décharger mes pensées</span>
+                </span>
               </button>
-              <button onclick="showApp()" class="border-2 border-orange-300 text-orange-600 px-8 py-4 rounded-full font-semibold hover:bg-orange-50 transition-all duration-300">
-                💭 Commencer mon introspection
+              <button onclick="showApp()" class="border-2 border-orange-300 text-orange-600 px-6 py-3 rounded-full font-medium hover:bg-orange-50 transition-all duration-300">
+                <span class="flex items-center gap-2">
+                  <span>💭</span>
+                  <span>Mon introspection</span>
+                </span>
               </button>
-              <button onclick="scrollToFeatures()" class="text-slate-600 hover:text-orange-600 px-6 py-3 rounded-full font-medium transition-all duration-300">
-                Découvrir les fonctionnalités
+              <button onclick="scrollToFeatures()" class="text-slate-600 hover:text-orange-600 px-4 py-2 rounded-full font-medium transition-all duration-300">
+                En savoir plus
               </button>
             </div>
           </div>
@@ -251,8 +261,8 @@
     <section id="features" class="py-20 px-4 sm:px-6 lg:px-8 warm-bg">
       <div class="max-w-7xl mx-auto">
         <div class="text-center mb-16">
-          <h2 class="text-4xl font-bold text-slate-900 mb-4">Fonctionnalités puissantes</h2>
-          <p class="text-xl text-slate-700 max-w-3xl mx-auto">
+          <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Fonctionnalités puissantes</h2>
+          <p class="text-lg md:text-xl text-slate-700 max-w-3xl mx-auto">
             Découvrez comment MindClean vous aide à organiser votre monde intérieur
           </p>
         </div>
@@ -326,8 +336,8 @@
     <section class="py-20 px-4 sm:px-6 lg:px-8 warm-bg">
       <div class="max-w-7xl mx-auto">
         <div class="text-center mb-16">
-          <h2 class="text-4xl font-bold text-slate-900 mb-4">Ils ont libéré leur flamme</h2>
-          <p class="text-xl text-slate-700">Découvrez l'impact de MindClean sur leur quotidien</p>
+          <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Ils ont libéré leur flamme</h2>
+          <p class="text-lg md:text-xl text-slate-700">Découvrez l'impact de MindClean sur leur quotidien</p>
         </div>
 
         <div class="grid md:grid-cols-3 gap-8">
@@ -403,17 +413,26 @@
     <!-- CTA Section -->
     <section class="py-20 px-4 sm:px-6 lg:px-8 flame-bg">
       <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-4xl font-bold text-slate-800 mb-6">
+        <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-6">
           Prêt à libérer votre flamme intérieure ?
         </h2>
-        <p class="text-xl text-slate-600 mb-8">
+        <p class="text-lg md:text-xl text-slate-600 mb-8">
           Rejoignez des milliers de personnes qui ont transformé leur relation avec leurs pensées et émotions.
         </p>
-        <button onclick="showApp()" class="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 text-white px-12 py-4 rounded-full font-bold text-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 pulse-glow">
-          🧠 Décharger mes pensées maintenant
+        <button onclick="showApp()" class="bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300">
+          <span class="flex items-center gap-2">
+            <span>🧠</span>
+            <span>Décharger mes pensées</span>
+          </span>
         </button>
       </div>
     </section>
+
+    <!-- Floating Action Button -->
+    <button onclick="showApp()" class="fixed bottom-8 right-8 bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 text-white w-16 h-16 rounded-full shadow-2xl hover:shadow-3xl hover:scale-110 transition-all duration-300 z-50 flex items-center justify-center group" title="Accéder à MindClean">
+      <span class="text-2xl group-hover:scale-110 transition-transform duration-300">🧠</span>
+      <div class="absolute -top-2 -left-2 w-4 h-4 bg-yellow-400 rounded-full animate-ping"></div>
+    </button>
 
     <!-- Footer -->
     <footer class="bg-slate-900 text-white py-12 px-4 sm:px-6 lg:px-8">
@@ -507,14 +526,35 @@
 
     // Show app function
     function showApp() {
+      // Masquer la landing page
       document.getElementById('landing-view').classList.add('hide');
-      document.getElementById('app-view').classList.add('show');
 
-      // Load the React app
-      const script = document.createElement('script');
-      script.type = 'module';
-      script.src = '/src/main.jsx';
-      document.body.appendChild(script);
+      // Afficher l'app avec un indicateur de chargement
+      const appView = document.getElementById('app-view');
+      appView.innerHTML = `
+        <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 via-red-50/50 to-pink-50/30">
+          <div class="text-center">
+            <div class="animate-spin w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full mx-auto mb-4"></div>
+            <p class="text-lg text-slate-600">Chargement de MindClean...</p>
+          </div>
+        </div>
+      `;
+      appView.classList.add('show');
+
+      // Charger l'application React après un court délai
+      setTimeout(() => {
+        const script = document.createElement('script');
+        script.type = 'module';
+        script.src = '/src/main.jsx';
+        document.body.appendChild(script);
+
+        // Ajouter le contenu de l'app après le chargement du script
+        setTimeout(() => {
+          appView.innerHTML = `
+            <div id="root"></div>
+          `;
+        }, 100);
+      }, 500);
     }
 
     // Show landing page function
